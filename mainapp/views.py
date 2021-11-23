@@ -97,10 +97,13 @@ def addappartment(request):
         renter1 = request.POST['renter']
         rphone = request.POST['rphone']
         share1 = request.POST['share']
+        sno = request.POST['sno']
+        startdate1 = request.POST['sdate']
+        expiredate1 = request.POST['edate']
         file = request.FILES['file']
         user1 = User.objects.get(username=request.user.username)
         # Create the job
-        Add = addapartment( user = user1 ,appname = appname1 , owner= oname1 , OPhone = ophone,renter = renter1,  RPhone=rphone ,share = share1 , image= file )
+        Add = addapartment( user = user1 ,appname = appname1 , owner= oname1 , OPhone = ophone,renter = renter1,  RPhone=rphone ,share = share1 , image= file, stno=sno, startdate = startdate1, expiredate = expiredate1 )
         Add.save()
         messages.success(request, "Your appartment add successfully.")
         return redirect('/addappartment')
@@ -129,10 +132,14 @@ def update(request,id):
         renter1 = request.POST['renter']
         rphone = request.POST['rphone']
         share1 = request.POST['share']
+        sno = request.POST['sno']
+        startdate1 = request.POST['sdate']
+        expiredate1 = request.POST['edate']
         file = request.FILES['file']
         
         # Create the job
         ujob = addapartment.objects.get(id=id)
+        ujob.stno = sno
         ujob.appname = appname1
         ujob.owner = oname1
         ujob.OPhone = ophone
@@ -140,6 +147,8 @@ def update(request,id):
         ujob.RPhone = rphone
         ujob.sahre = share1
         ujob.image = file
+        ujob.startdate = startdate1
+        ujob.expiredate = expiredate1
         ujob.save()
         
         
